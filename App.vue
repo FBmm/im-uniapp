@@ -1,4 +1,5 @@
 <script>
+import { useUserStore } from '@/stores/user';
 	export default {
 		onLaunch: function() {
 			console.log('App Launch')
@@ -8,7 +9,17 @@
 		},
 		onHide: function() {
 			console.log('App Hide')
-		}
+		},
+		setup() {
+			const userStore = useUserStore();
+			const getUserInfo = () => {
+				const user = uni.getStorageSync('user')
+				if (user) {
+					userStore.set_user_info(JSON.parse(user))
+				}
+			}
+			getUserInfo()
+		},
 	}
 </script>
 

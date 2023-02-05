@@ -9,13 +9,13 @@
 		{
 			"path": "pages/chat/index",
 			"style": {
-				"navigationBarTitleText": "微微"
+				"navigationBarTitleText": ""
 			}
 		},
 		{
 			"path": "pages/list/index",
 			"style": {
-				"navigationBarTitleText": "微微"
+				"navigationBarTitleText": "用户列表"
 			}
 		}
 	],

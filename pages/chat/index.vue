@@ -1,135 +1,62 @@
 <template>
 	<view class="content">
 		<view class="chat-wrapper">
-			<view class="msg-box">
+			<view class="msg-box" v-for="item in messageList" :class="{'is-me': item.userInfo.uId === userStore.uId}">
 				<image class="img" style="width: 80rpx; height: 80rpx;border-radius: 10rpx;" mode="aspectFit"
-					src="https://picx.zhimg.com/80/v2-6c5ff4ef0bb78991ed03ab720f1b2447_1440w.webp?source=1940ef5c"></image>
+					:src="item.userInfo.info.userImg"></image>
 				<view class="msg-box__right">
 					<view class="msg-info">
-						<view class="nickname">王五十</view>
-						<view>2021/2/23 12:01</view>
+						<view class="nickname">{{item.userInfo.usernick}}</view>
+						<view>{{item.time}}</view>
 					</view>
-					<view class="msg">爱你打算
+					<view class="msg">{{item.msg.content}}
 					</view>
 				</view>
 			</view>
-			<view class="msg-box is-me">
-				<image class="img" style="width: 80rpx; height: 80rpx;border-radius: 10rpx;" mode="aspectFit"
-					src="https://picx.zhimg.com/80/v2-6c5ff4ef0bb78991ed03ab720f1b2447_1440w.webp?source=1940ef5c"></image>
-				<view class="msg-box__right">
-					<view class="msg-info">
-						<view class="nickname">王五十</view>
-						<view>2021/2/23 12:01</view>
-					</view>
-					<view class="msg">宝贝
-					</view>
-				</view>
-			</view>
-			<view class="msg-box">
-				<image class="img" style="width: 80rpx; height: 80rpx;border-radius: 10rpx;" mode="aspectFit"
-					src="https://picx.zhimg.com/80/v2-6c5ff4ef0bb78991ed03ab720f1b2447_1440w.webp?source=1940ef5c"></image>
-				<view class="msg-box__right">
-					<view class="msg-info">
-						<view class="nickname">王五十</view>
-						<view>2021/2/23 12:01</view>
-					</view>
-					<view class="msg">sadas奥术大师大所多Asdasdsadas奥术大师大所多Asdasdsadas奥术大师大所多Asdasdsadas奥术大师大所多Asdasdsadas奥术大师大所多Asdasd
-					</view>
-				</view>
-			</view>
-			<view class="msg-box is-me">
-				<image class="img" style="width: 80rpx; height: 80rpx;border-radius: 10rpx;" mode="aspectFit"
-					src="https://picx.zhimg.com/80/v2-6c5ff4ef0bb78991ed03ab720f1b2447_1440w.webp?source=1940ef5c"></image>
-				<view class="msg-box__right">
-					<view class="msg-info">
-						<view class="nickname">王五十</view>
-						<view>2021/2/23 12:01</view>
-					</view>
-					<view class="msg">sdsdasdasdas12312312
-					</view>
-				</view>
-			</view>
-			<view class="msg-box">
-				<image class="img" style="width: 80rpx; height: 80rpx;border-radius: 10rpx;" mode="aspectFit"
-					src="https://picx.zhimg.com/80/v2-6c5ff4ef0bb78991ed03ab720f1b2447_1440w.webp?source=1940ef5c"></image>
-				<view class="msg-box__right">
-					<view class="msg-info">
-						<view class="nickname">王五十</view>
-						<view>2021/2/23 12:01</view>
-					</view>
-					<view class="msg">阿达发大所大所大所大所多大叔大婶多啊实打实啊
-					</view>
-				</view>
-			</view>
-			<view class="msg-box is-me">
-				<image class="img" style="width: 80rpx; height: 80rpx;border-radius: 10rpx;" mode="aspectFit"
-					src="https://picx.zhimg.com/80/v2-6c5ff4ef0bb78991ed03ab720f1b2447_1440w.webp?source=1940ef5c"></image>
-				<view class="msg-box__right">
-					<view class="msg-info">
-						<view class="nickname">王五十</view>
-						<view>2021/2/23 12:01</view>
-					</view>
-					<view class="msg">爱你爱你爱你爱你爱你爱你爱你爱你
-					</view>
-				</view>
-			</view>
-			<view class="msg-box">
-				<image class="img" style="width: 80rpx; height: 80rpx;border-radius: 10rpx;" mode="aspectFit"
-					src="https://picx.zhimg.com/80/v2-6c5ff4ef0bb78991ed03ab720f1b2447_1440w.webp?source=1940ef5c"></image>
-				<view class="msg-box__right">
-					<view class="msg-info">
-						<view class="nickname">王五十</view>
-						<view>2021/2/23 12:01</view>
-					</view>
-					<view class="msg">sadas奥术大师大所多Asdasdsadas奥术大师大所多Asdasdsadas奥术大师大所多Asdasdsadas奥术大师大所多Asdasdsadas奥术大师大所多Asdasd
-					</view>
-				</view>
-			</view>
-			<view class="msg-box is-me">
-				<image class="img" style="width: 80rpx; height: 80rpx;border-radius: 10rpx;" mode="aspectFit"
-					src="https://picx.zhimg.com/80/v2-6c5ff4ef0bb78991ed03ab720f1b2447_1440w.webp?source=1940ef5c"></image>
-				<view class="msg-box__right">
-					<view class="msg-info">
-						<view class="nickname">王五十</view>
-						<view>2021/2/23 12:01</view>
-					</view>
-					<view class="msg">爱你爱你爱你爱你
-					</view>
-				</view>
-			</view>
-			<view class="msg-box">
-				<image class="img" style="width: 80rpx; height: 80rpx;border-radius: 10rpx;" mode="aspectFit"
-					src="https://picx.zhimg.com/80/v2-6c5ff4ef0bb78991ed03ab720f1b2447_1440w.webp?source=1940ef5c"></image>
-				<view class="msg-box__right">
-					<view class="msg-info">
-						<view class="nickname">王五十</view>
-						<view>2021/2/23 12:01</view>
-					</view>
-					<view class="msg">爱你
-					</view>
-				</view>
-			</view>
-			<view class="msg-box is-me">
-				<image class="img" style="width: 80rpx; height: 80rpx;border-radius: 10rpx;" mode="aspectFit"
-					src="https://picx.zhimg.com/80/v2-6c5ff4ef0bb78991ed03ab720f1b2447_1440w.webp?source=1940ef5c"></image>
-				<view class="msg-box__right">
-					<view class="msg-info">
-						<view class="nickname">王五十</view>
-						<view>2021/2/23 12:01</view>
-					</view>
-					<view class="msg">sadas奥术大师大所多Asdasdsadas奥术大师大所多Asdasdsadas奥术大师大所多Asdasdsadas奥术大师大所多Asdasdsadas奥术大师大所多Asdasd
-					</view>
-				</view>
-			</view>
+		</view>
+		<view class="chat-footer">
+			<input class="message-input" type="text" v-model="currentMsg">
+			<button @click="onSend">发送</button>
 		</view>
 	</view>
 </template>
 
 <script>
+import { ref, watch } from 'vue';
+import { useSocket } from '@/utils/ws';
+import { useUserStore } from '@/stores/user';
+import { useRoomStore } from '@/stores/room';
 export default {
-	data() {
+	setup() {
+		const socket = useSocket()
+		const userStore = useUserStore();
+		const roomStore = useRoomStore();
+		const currentMsg = ref('')
+		const messageList = ref(roomStore.messageList)
+		
+		socket.on("message-update", (list) => {
+			console.log('message-update', list)
+			messageList.value = list
+		});
+		uni.setNavigationBarTitle({
+			title: roomStore.roomTitle
+		});
+
 		return {
-			title: 'Hello'
+			currentMsg,
+			messageList,
+			userStore,
+			onSend() {
+				if (!currentMsg.value) return
+				socket.emit('send', roomStore.roomId, {
+					msg: {
+						type: 'text',
+						content: currentMsg.value
+					},
+					userInfo: userStore.userInfo,
+				})
+				currentMsg.value = ''
+			}
 		}
 	},
 	onLoad() {
@@ -148,6 +75,7 @@ export default {
 	align-items: center;
 	justify-content: center;
 	.chat-wrapper {
+		width: 100%;
 		height: 100vh;
 		padding: 30rpx;
 		box-sizing: border-box;
@@ -188,6 +116,7 @@ export default {
 				.msg {
 					margin-left: 0;
 					background-color: #95eb6c;
+					align-self: flex-end;
 				}
 			}
 
@@ -201,6 +130,33 @@ export default {
 				border-radius: 10rpx;
 				font-size: 36rpx;
 			}
+		}
+	}
+	.chat-footer {
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		height: 80rpx;
+		z-index: 10;
+		background-color: #f7f7f7;
+		padding: 20rpx 30rpx;
+		display: flex;
+		justify-content: space-around;
+		align-items: center;
+		uni-button {
+			width: 130rpx;
+			height: 80rpx;
+			background-color: #95eb6c;
+			border-radius: 20rpx !important;
+		}
+		.message-input {
+			flex: 1;
+			background-color: #fff;
+			border-radius: 20rpx;
+			margin-right: 30rpx;
+			padding: 20rpx 30rpx;
+			box-sizing: border-box;
 		}
 	}
 }

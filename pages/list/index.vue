@@ -2,24 +2,30 @@
 	<view class="content">
 		<scroll-view :scroll-top="scrollTop" scroll-y="true" class="list-wrap" @scrolltoupper="upper" @scrolltolower="lower"
 			@scroll="scroll">
-			<view class="list-item" @click="toChat">
-				<view class="list-item-left">
-					<image style="width: 100%; height: 100%;border-radius: 10rpx;" mode="aspectFit"
-						src="https://picx.zhimg.com/80/v2-6c5ff4ef0bb78991ed03ab720f1b2447_1440w.webp?source=1940ef5c"></image>
-				</view>
-				<view class="list-item-right">
-					<view class="msg-box">
-						<view class="nickname">魔芋协会</view>
-						<view class="time">下午 5:52</view>
+			<template v-for="user in userList">
+				<view class="list-item"  v-if="user.uId !== userStore.uId" @click="enterRoom(user)">
+					<view class="list-item-left">
+						<image style="width: 100%; height: 100%;border-radius: 10rpx;" mode="aspectFit"
+							:src="user.info.userImg || 'https://wuqianqian.cn/public/img/man1.jpg'"></image>
 					</view>
-					<view class="desc">asdasdasdasdasdasdasd</view>
+					<view class="list-item-right">
+						<view class="msg-box">
+							<view class="nickname">{{ user.info.usernick }}</view>
+							<view class="time">下午 5:52</view>
+						</view>
+						<view class="desc">{{ user.uId }} - {{ userStore.uId }}</view>
+					</view>
 				</view>
-			</view>
+			</template>
 		</scroll-view>
 	</view>
 </template>
 
 <script>
+import { ref } from 'vue';
+import { useSocket, createSocket } from '@/utils/ws';
+import { useRoomStore } from '@/stores/room';
+import { useUserStore } from '@/stores/user';
 export default {
 	data() {
 		return {
@@ -29,13 +35,38 @@ export default {
 	onLoad() {
 
 	},
-	methods: {
-		toChat() {
-			uni.navigateTo({
-				url: '/pages/chat/index'
+	setup() {
+		const socket = useSocket()
+		const roomStore = useRoomStore();
+		const userStore = useUserStore();
+
+		socket.emit("users");
+		const userList = ref([])
+		socket.on("user-list", (res) => {
+			console.log('user-list', res)
+			userList.value = res.users
+		});
+
+		const enterRoom = (user) => {
+			const uId = userStore.uId;
+			socket.emit("room", [uId, user.uId]);
+			socket.on("room-ok", (res) => {
+				console.log('room-ok', res)
+				roomStore.roomId = res.id
+				roomStore.messageList = res.data || []
+				roomStore.roomTitle = user.info.usernick
+				uni.navigateTo({
+					url: '/pages/chat/index'
+				});
 			});
 		}
-	}
+
+		return {
+			userStore,
+			userList,
+			enterRoom
+		}
+	},
 }
 </script>
 

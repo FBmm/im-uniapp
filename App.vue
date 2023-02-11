@@ -1,5 +1,6 @@
 <script>
 import { useUserStore } from '@/stores/user';
+import { useSocket } from '@/utils/ws';
 	export default {
 		onLaunch: function() {
 			console.log('App Launch')
@@ -14,8 +15,10 @@ import { useUserStore } from '@/stores/user';
 			const userStore = useUserStore();
 			const getUserInfo = () => {
 				const user = uni.getStorageSync('user')
-				if (user) {
+				if (user?.nickname && user?.code) {
 					userStore.set_user_info(JSON.parse(user))
+					const socket = useSocket()
+					socket.emit("start", JSON.parse(user));
 				}
 			}
 			getUserInfo()

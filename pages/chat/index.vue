@@ -6,7 +6,7 @@
 					:src="item.userInfo.info.userImg"></image>
 				<view class="msg-box__right">
 					<view class="msg-info">
-						<view class="nickname">{{item.userInfo.usernick}}</view>
+						<view class="nickname">{{item.userInfo.info.usernick}}</view>
 						<view>{{item.time}}</view>
 					</view>
 					<view class="msg">{{item.msg.content}}
@@ -110,6 +110,10 @@ export default {
 					margin-right: 20rpx;
 					.msg-info {
 						flex-direction: row-reverse;
+						.nickname {
+							margin-left: 10rpx;
+							margin-right: 0;
+						}
 					}
 				}
 
@@ -129,6 +133,7 @@ export default {
 				padding: 20rpx;
 				border-radius: 10rpx;
 				font-size: 36rpx;
+				align-self: flex-start;
 			}
 		}
 	}

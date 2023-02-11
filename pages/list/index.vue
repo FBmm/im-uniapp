@@ -2,6 +2,19 @@
 	<view class="content">
 		<scroll-view :scroll-top="scrollTop" scroll-y="true" class="list-wrap" @scrolltoupper="upper" @scrolltolower="lower"
 			@scroll="scroll">
+			<view class="list-item" @click="enterGroup('group-1')">
+					<view class="list-item-left">
+						<image style="width: 100%; height: 100%;border-radius: 10rpx;" mode="aspectFit"
+							src="https://wuqianqian.cn/public/img/group.jpeg"></image>
+					</view>
+					<view class="list-item-right">
+						<view class="msg-box">
+							<view class="nickname">群聊</view>
+							<view class="time"></view>
+						</view>
+						<view class="desc"></view>
+					</view>
+				</view>
 			<template v-for="user in userList">
 				<view class="list-item"  v-if="user.uId !== userStore.uId" @click="enterRoom(user)">
 					<view class="list-item-left">
@@ -61,10 +74,24 @@ export default {
 			});
 		}
 
+		const enterGroup = (groupId) => {
+			socket.emit("group", groupId);
+			socket.on("room-ok", (res) => {
+				console.log('room-ok', res)
+				roomStore.roomId = res.id
+				roomStore.messageList = res.data || []
+				roomStore.roomTitle = '群聊'
+				uni.navigateTo({
+					url: '/pages/chat/index'
+				});
+			});
+		}
+
 		return {
 			userStore,
 			userList,
-			enterRoom
+			enterRoom,
+			enterGroup
 		}
 	},
 }

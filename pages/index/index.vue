@@ -31,7 +31,7 @@
 			</view>
 		</view> -->
 		<view class="uni-form-item uni-column">
-			<button type="primary" @click="startChat">开始聊天</button>
+			<button type="primary" @click="startChat" :disabled="!formData.usernick || !formData.code">开始聊天</button>
 		</view>
 	</view>
 </template>
@@ -45,10 +45,13 @@ export default {
 
 	},
 	setup() {
+
 		const user = useUserStore();
+		user.set_user_info({});
+		uni.removeStorageSync('user')
 
 		const formData = reactive({
-			usernick: '111',
+			usernick: '',
 			sex: '1',
 			code: ''
 		})
@@ -56,6 +59,7 @@ export default {
 		const socket = useSocket()
 
 		const startChat = () => {
+			if (!formData.usernick || !formData.code) return
 			socket.emit("start", formData);
 		}
 
